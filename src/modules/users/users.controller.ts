@@ -7,14 +7,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  // 🔓 Este endpoint sigue siendo público (cualquiera puede crear un usuario)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-
-  // 🔒 Solo este endpoint requerirá el Token JWT
  
   @Get()
   findAll() {

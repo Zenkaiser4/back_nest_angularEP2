@@ -1,9 +1,6 @@
 import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 
-// 👇 IMPORTACIÓN DIRECTA DE LA ENTIDAD (Déjala tal cual, esta ya funciona)
-import { User } from './src/modules/users/entities/user.entity'; 
-
 const env = process.env.NODE_ENV || 'development';
 
 config({
@@ -20,8 +17,11 @@ export default new DataSource({
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
     synchronize: false, 
-    entities: [User], 
     
     // 👇 CAMBIA ESTA LÍNEA EXACTAMENTE A ESTO:
+    // Borra los imports manuales de arriba y pon este comodín. 
+    // Buscará cualquier archivo que termine en .entity.ts dentro de src
+    entities: ['./src/**/*.entity.ts'], 
+    
     migrations: ['./src/database/migrations/*.ts'] 
 });
